@@ -1,0 +1,14 @@
+<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="40" cy="40" r="40" fill="#ffffff"/>
+  
+  <!-- Logo elements based on the provided image -->
+  <!-- Top yellow parallelogram -->
+  <path d="M35 15 L50 15 L45 25 L30 25 Z" fill="#cdae50"/>
+  
+  <!-- Main blue F shape -->
+  <path d="M25 30 L40 30 L35 40 L30 40 L30 50 L40 50 L35 60 L20 60 Z" fill="#143964"/>
+  
+  <!-- Bottom yellow parallelogram -->
+  <path d="M45 45 L60 45 L55 55 L40 55 Z" fill="#cdae50"/>
+</svg>

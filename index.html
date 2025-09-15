@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThePlanner - Business Plan Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-section">
+                <div class="logo-placeholder">
+                    <img src="logoAreaFinanza.png" alt="Logo Area Finanza">
+                </div>
+                <h1>ThePlanner</h1>
+            </div>
+            <div class="header-controls">
+                <button id="saveBtn" class="btn btn-secondary">Salva</button>
+                <button id="loadBtn" class="btn btn-secondary">Carica</button>
+                <button id="printBtn" class="btn btn-primary">Stampa/PDF</button>
+                <button id="testBtn" class="btn btn-test">Esegui Test</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="schema-toggle">
+                    <h3>Modalità Schema</h3>
+                    <div class="toggle-container">
+                        <input type="radio" id="smart" name="schema" value="smart" checked>
+                        <label for="smart">Smart</label>
+                        <input type="radio" id="analitico" name="schema" value="analitico">
+                        <label for="analitico">Analitico</label>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <!-- Company Info -->
+                    <div class="form-section">
+                        <h4>Informazioni Azienda</h4>
+                        <div class="form-group">
+                            <label for="companyName">Nome Azienda</label>
+                            <input type="text" id="companyName" placeholder="Inserisci nome azienda">
+                        </div>
+                        <div class="form-group">
+                            <label for="companyLogo">Logo Aziendale</label>
+                            <input type="file" id="companyLogo" accept="image/*">
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Sections -->
+                    <div id="dynamicSections"></div>
+
+                    <!-- Financial Data -->
+                    <div class="form-section">
+                        <h4>Dati Finanziari</h4>
+                        <div id="financialYears">
+                            <div class="year-data" data-year="1">
+                                <h5>Anno 1</h5>
+                                <div class="form-group">
+                                    <label>Ricavi (€)</label>
+                                    <input type="number" class="revenue" data-year="1" placeholder="0">
+                                </div>
+                                <div class="form-group">
+                                    <label>COGS (€)</label>
+                                    <input type="number" class="cogs" data-year="1" placeholder="0">
+                                </div>
+                                <div class="form-group">
+                                    <label>OPEX (€)</label>
+                                    <input type="number" class="opex" data-year="1" placeholder="0">
+                                </div>
+                                <div class="kpi-display">
+                                    <div class="kpi-item">
+                                        <span>Margine Lordo:</span>
+                                        <span class="gross-margin" data-year="1">0€</span>
+                                    </div>
+                                    <div class="kpi-item">
+                                        <span>EBITDA:</span>
+                                        <span class="ebitda" data-year="1">0€</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="addYearBtn" class="btn btn-secondary">Aggiungi Anno</button>
+                    </div>
+
+                    <!-- Photo Gallery -->
+                    <div class="form-section">
+                        <h4>📸 Galleria Foto</h4>
+                        <div class="form-group">
+                            <label for="photo-upload">Carica Immagini</label>
+                            <input type="file" id="photo-upload" multiple accept="image/*" class="file-input">
+                            <div class="upload-hint">Formati supportati: JPG, PNG, GIF, WebP</div>
+                        </div>
+                        <div class="photo-gallery" id="photo-gallery">
+                            <div class="gallery-placeholder">
+                                <div class="placeholder-icon">📷</div>
+                                <p>Nessuna immagine caricata</p>
+                                <small>Le foto verranno inserite automaticamente nel business plan</small>
+                            </div>
+                        </div>
+                        <div class="photo-controls">
+                            <button type="button" class="btn btn-secondary" id="clear-photos">Rimuovi Tutte</button>
+                            <button type="button" class="btn btn-primary" id="optimize-layout">Ottimizza Layout</button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Preview Area -->
+            <main class="preview-area">
+                <div class="preview-container">
+                    <div id="businessPlanPreview" class="business-plan-document">
+                        <!-- Cover Page -->
+                        <div class="cover-page">
+                            <div class="cover-header">
+                                <div class="company-logo-preview"></div>
+                                <div class="gradient-bar"></div>
+                            </div>
+                            <div class="cover-content">
+                                <h1 class="cover-title">Business Plan</h1>
+                                <h2 class="company-name-preview">Nome Azienda</h2>
+                                <div class="cover-date"></div>
+                            </div>
+                        </div>
+
+                        <!-- Content Pages -->
+                        <div id="contentPages"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Hidden file input for loading -->
+    <input type="file" id="fileInput" accept=".json" style="display: none;">
+
+    <!-- Test Results Modal -->
+    <div id="testModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Risultati Test</h3>
+            <div id="testResults"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
