@@ -24,90 +24,211 @@
                 <button id="loadBtn" class="btn btn-secondary">Carica</button>
                 <button id="printBtn" class="btn btn-primary">Stampa/PDF</button>
                 <button id="testBtn" class="btn btn-test">Esegui Test</button>
+                <a href="admin.html" class="btn btn-admin" title="Pannello di Controllo Admin">⚙️ Admin</a>
             </div>
         </header>
 
         <div class="main-content">
             <!-- Sidebar -->
             <aside class="sidebar">
-                <div class="schema-toggle">
-                    <h3>Modalità Schema</h3>
-                    <div class="toggle-container">
-                        <input type="radio" id="smart" name="schema" value="smart" checked>
-                        <label for="smart">Smart</label>
-                        <input type="radio" id="analitico" name="schema" value="analitico">
-                        <label for="analitico">Analitico</label>
+                <div class="sidebar-header">
+                    <div class="schema-toggle">
+                        <h3>Modalità Schema</h3>
+                        <div class="toggle-container">
+                            <input type="radio" id="smart" name="schema" value="smart" checked>
+                            <label for="smart">Smart</label>
+                            <input type="radio" id="analitico" name="schema" value="analitico">
+                            <label for="analitico">Analitico</label>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Configuration Section -->
+                    <div class="ai-config-section">
+                        <div class="ai-toggle">
+                            <label>
+                                <input type="checkbox" id="aiEnabled" class="ai-checkbox">
+                                <span class="ai-label">🤖 Assistente AI</span>
+                            </label>
+                        </div>
+                        <div class="ai-config" id="aiConfig" style="display: none;">
+                            <div class="form-group">
+                                <label for="aiProvider">Provider AI:</label>
+                                <select id="aiProvider" class="form-control">
+                                    <option value="openai">OpenAI (GPT-4)</option>
+                                    <option value="perplexity">Perplexity AI</option>
+                                </select>
+                            </div>
+
+                            <div class="document-upload">
+                                <label for="documentUpload">📄 Carica documenti aziendali:</label>
+                                <div class="upload-area" id="uploadArea">
+                                    <input type="file" id="documentUpload" multiple accept=".pdf,.docx,.txt,.doc,.xlsx,.pptx" class="file-input">
+                                    <div class="upload-placeholder">
+                                        <div class="upload-icon">📁</div>
+                                        <p>Trascina i file qui o <span class="upload-link">clicca per selezionare</span></p>
+                                        <small>Formati supportati: PDF, DOCX, TXT, DOC, XLSX, PPTX</small>
+                                    </div>
+                                </div>
+                                <div class="uploaded-files" id="uploadedFiles">
+                                    <div class="files-header" style="display: none;">
+                                        <h4>📋 Documenti caricati:</h4>
+                                    </div>
+                                    <div class="files-list" id="filesList"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-container">
-                    <!-- Company Info -->
-                    <div class="form-section">
-                        <h4>Informazioni Azienda</h4>
-                        <div class="form-group">
-                            <label for="companyName">Nome Azienda</label>
-                            <input type="text" id="companyName" placeholder="Inserisci nome azienda">
-                        </div>
-                        <div class="form-group">
-                            <label for="companyLogo">Logo Aziendale</label>
-                            <input type="file" id="companyLogo" accept="image/*">
-                        </div>
-                    </div>
-
-                    <!-- Dynamic Sections -->
-                    <div id="dynamicSections"></div>
-
-                    <!-- Financial Data -->
-                    <div class="form-section">
-                        <h4>Dati Finanziari</h4>
-                        <div id="financialYears">
-                            <div class="year-data" data-year="1">
-                                <h5>Anno 1</h5>
-                                <div class="form-group">
-                                    <label>Ricavi (€)</label>
-                                    <input type="number" class="revenue" data-year="1" placeholder="0">
-                                </div>
-                                <div class="form-group">
-                                    <label>COGS (€)</label>
-                                    <input type="number" class="cogs" data-year="1" placeholder="0">
-                                </div>
-                                <div class="form-group">
-                                    <label>OPEX (€)</label>
-                                    <input type="number" class="opex" data-year="1" placeholder="0">
-                                </div>
-                                <div class="kpi-display">
-                                    <div class="kpi-item">
-                                        <span>Margine Lordo:</span>
-                                        <span class="gross-margin" data-year="1">0€</span>
+                <div class="sidebar-content">
+                    <div class="form-container">
+                        <!-- Sezione 1: Informazioni Base -->
+                        <div class="macro-section" data-section="base">
+                            <div class="section-header">
+                                <h2>🏢 Informazioni Base</h2>
+                                <span class="section-toggle">−</span>
+                            </div>
+                            <div class="section-content">
+                                <div class="form-section">
+                                    <h4>Informazioni Azienda</h4>
+                                    <div class="form-group">
+                                    <label for="companyName">Nome Azienda</label>
+                                    <div class="input-with-ai">
+                                        <input type="text" id="companyName" placeholder="Inserisci nome azienda">
+                                        <div class="ai-buttons-group">
+                                            <button type="button" class="ai-generate-btn" data-field="companyName" title="Genera con AI">🤖</button>
+                                            <button type="button" class="ai-chat-btn" data-field="companyName" title="Chat personalizzata">💬</button>
+                                        </div>
                                     </div>
-                                    <div class="kpi-item">
-                                        <span>EBITDA:</span>
-                                        <span class="ebitda" data-year="1">0€</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="problemDescription">Descrizione del Problema:</label>
+                                    <div class="input-with-ai">
+                                        <textarea id="problemDescription" class="form-control" rows="4" placeholder="Quale problema risolve il tuo prodotto/servizio?"></textarea>
+                                        <div class="ai-buttons-group">
+                                            <button type="button" class="ai-generate-btn" data-field="problemDescription" title="Genera con AI">🤖</button>
+                                            <button type="button" class="ai-chat-btn" data-field="problemDescription" title="Chat personalizzata">💬</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="solutionDescription">Descrizione della Soluzione:</label>
+                                    <div class="input-with-ai">
+                                        <textarea id="solutionDescription" class="form-control" rows="4" placeholder="Come il tuo prodotto/servizio risolve il problema?"></textarea>
+                                        <div class="ai-buttons-group">
+                                            <button type="button" class="ai-generate-btn" data-field="solutionDescription" title="Genera con AI">🤖</button>
+                                            <button type="button" class="ai-chat-btn" data-field="solutionDescription" title="Chat personalizzata">💬</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="targetMarket">Mercato Target:</label>
+                                    <div class="input-with-ai">
+                                        <textarea id="targetMarket" class="form-control" rows="3" placeholder="Chi sono i tuoi clienti ideali?"></textarea>
+                                        <div class="ai-buttons-group">
+                                            <button type="button" class="ai-generate-btn" data-field="targetMarket" title="Genera con AI">🤖</button>
+                                            <button type="button" class="ai-chat-btn" data-field="targetMarket" title="Chat personalizzata">💬</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="competitorAnalysis">Analisi Competitor:</label>
+                                    <div class="input-with-ai">
+                                        <textarea id="competitorAnalysis" class="form-control" rows="3" placeholder="Chi sono i tuoi principali competitor?"></textarea>
+                                        <div class="ai-buttons-group">
+                                            <button type="button" class="ai-generate-btn" data-field="competitorAnalysis" title="Genera con AI">🤖</button>
+                                            <button type="button" class="ai-chat-btn" data-field="competitorAnalysis" title="Chat personalizzata">💬</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="form-group">
+                                        <label for="companyLogo">Logo Aziendale</label>
+                                        <input type="file" id="companyLogo" accept="image/*">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button id="addYearBtn" class="btn btn-secondary">Aggiungi Anno</button>
-                    </div>
 
-                    <!-- Photo Gallery -->
-                    <div class="form-section">
-                        <h4>📸 Galleria Foto</h4>
-                        <div class="form-group">
-                            <label for="photo-upload">Carica Immagini</label>
-                            <input type="file" id="photo-upload" multiple accept="image/*" class="file-input">
-                            <div class="upload-hint">Formati supportati: JPG, PNG, GIF, WebP</div>
-                        </div>
-                        <div class="photo-gallery" id="photo-gallery">
-                            <div class="gallery-placeholder">
-                                <div class="placeholder-icon">📷</div>
-                                <p>Nessuna immagine caricata</p>
-                                <small>Le foto verranno inserite automaticamente nel business plan</small>
+                        <!-- Sezione 2: Contenuti Dinamici -->
+                        <div class="macro-section" data-section="content">
+                            <div class="section-header">
+                                <h2>📋 Contenuti Business</h2>
+                                <span class="section-toggle">−</span>
+                            </div>
+                            <div class="section-content">
+                                <!-- Dynamic Sections -->
+                                <div id="dynamicSections"></div>
                             </div>
                         </div>
-                        <div class="photo-controls">
-                            <button type="button" class="btn btn-secondary" id="clear-photos">Rimuovi Tutte</button>
-                            <button type="button" class="btn btn-primary" id="optimize-layout">Ottimizza Layout</button>
+
+                        <!-- Sezione 3: Dati Finanziari -->
+                        <div class="macro-section" data-section="financial">
+                            <div class="section-header">
+                                <h2>📊 Dati Finanziari</h2>
+                                <span class="section-toggle">−</span>
+                            </div>
+                            <div class="section-content">
+                                <div class="form-section">
+                                    <h4>Dati Finanziari</h4>
+                                    <div id="financialYears">
+                                        <div class="year-data" data-year="1">
+                                            <h5>Anno 1</h5>
+                                            <div class="form-group">
+                                                <label>Ricavi (€)</label>
+                                                <input type="number" class="revenue" data-year="1" placeholder="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>COGS (€)</label>
+                                                <input type="number" class="cogs" data-year="1" placeholder="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>OPEX (€)</label>
+                                                <input type="number" class="opex" data-year="1" placeholder="0">
+                                            </div>
+                                            <div class="kpi-display">
+                                                <div class="kpi-item">
+                                                    <span>Margine Lordo:</span>
+                                                    <span class="gross-margin" data-year="1">0€</span>
+                                                </div>
+                                                <div class="kpi-item">
+                                                    <span>EBITDA:</span>
+                                                    <span class="ebitda" data-year="1">0€</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="addYearBtn" class="btn btn-secondary">Aggiungi Anno</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sezione 4: Galleria Foto -->
+                        <div class="macro-section" data-section="photos">
+                            <div class="section-header">
+                                <h2>📸 Galleria Foto</h2>
+                                <span class="section-toggle">−</span>
+                            </div>
+                            <div class="section-content">
+                                <div class="form-section">
+                                    <h4>📸 Galleria Foto</h4>
+                                    <div class="form-group">
+                                        <label for="photo-upload">Carica Immagini</label>
+                                        <input type="file" id="photo-upload" multiple accept="image/*" class="file-input">
+                                        <div class="upload-hint">Formati supportati: JPG, PNG, GIF, WebP</div>
+                                    </div>
+                                    <div class="photo-gallery" id="photo-gallery">
+                                        <div class="gallery-placeholder">
+                                            <div class="placeholder-icon">📷</div>
+                                            <p>Nessuna immagine caricata</p>
+                                            <small>Le foto verranno inserite automaticamente nel business plan</small>
+                                        </div>
+                                    </div>
+                                    <div class="photo-controls">
+                                        <button type="button" class="btn btn-secondary" id="clear-photos">Rimuovi Tutte</button>
+                                        <button type="button" class="btn btn-primary" id="optimize-layout">Ottimizza Layout</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -150,6 +271,50 @@
         </div>
     </div>
 
+    <!-- Mini Chat Modal -->
+    <div id="miniChatOverlay" class="mini-chat-overlay">
+        <div class="mini-chat-container">
+            <div class="mini-chat-header">
+                <h3 class="mini-chat-title" id="miniChatTitle">Personalizza Richiesta AI</h3>
+                <button class="mini-chat-close" id="miniChatClose">×</button>
+            </div>
+            <div class="mini-chat-body">
+                <div class="chat-field-info">
+                    <div class="chat-field-label" id="chatFieldLabel">Campo</div>
+                    <div class="chat-field-description" id="chatFieldDescription">Descrizione del campo</div>
+                </div>
+                
+                <div class="chat-prompt-section">
+                    <label class="chat-prompt-label">Personalizza la tua richiesta:</label>
+                    <textarea 
+                        id="chatPromptTextarea" 
+                        class="chat-prompt-textarea" 
+                        placeholder="Descrivi cosa vorresti che l'AI generi per questo campo. Puoi essere specifico sui dettagli, il tono, la lunghezza o qualsiasi altro aspetto..."
+                    ></textarea>
+                    
+                    <div class="chat-suggestions">
+                        <div class="chat-suggestions-label">Suggerimenti rapidi:</div>
+                        <div class="chat-suggestion-tags" id="chatSuggestionTags">
+                            <!-- I tag verranno generati dinamicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mini-chat-footer">
+                <button class="chat-btn chat-btn-secondary" id="chatCancelBtn">Annulla</button>
+                <button class="chat-btn chat-btn-primary" id="chatGenerateBtn">Genera Contenuto</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF.js for PDF parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // Configure PDF.js worker
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
     <script src="app.js"></script>
 </body>
 </html>

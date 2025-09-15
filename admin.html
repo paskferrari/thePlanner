@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Control - The Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .admin-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .admin-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .api-key-input {
+            position: relative;
+        }
+        
+        .api-key-input input {
+            padding-right: 50px;
+        }
+        
+        .toggle-visibility {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-right: 10px;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .btn-success {
+            background: #27ae60;
+        }
+        
+        .btn-success:hover {
+            background: #229954;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-active {
+            background: #27ae60;
+        }
+        
+        .status-inactive {
+            background: #e74c3c;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .config-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .config-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <a href="index.html" class="back-link">← Torna al Planner</a>
+        
+        <h1>🔧 Admin Control Panel</h1>
+        
+        <!-- Configurazione AI Provider -->
+        <div class="admin-section">
+            <h2>🤖 Configurazione AI Provider</h2>
+            <div class="form-group">
+                <label for="aiProvider">Provider AI:</label>
+                <select id="aiProvider">
+                    <option value="openai">OpenAI (GPT)</option>
+                    <option value="perplexity">Perplexity</option>
+                </select>
+            </div>
+            
+            <div class="config-grid">
+                <div class="form-group">
+                    <label for="temperature">Temperature (0-2):</label>
+                    <input type="number" id="temperature" min="0" max="2" step="0.1" value="0.7">
+                </div>
+                
+                <div class="form-group">
+                    <label for="maxTokens">Max Tokens:</label>
+                    <input type="number" id="maxTokens" min="100" max="4000" value="1000">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="systemPrompt">System Prompt Personalizzato:</label>
+                <textarea id="systemPrompt" rows="4" placeholder="Inserisci un prompt di sistema personalizzato per l'AI..."></textarea>
+            </div>
+        </div>
+        
+        <!-- Gestione API Keys -->
+        <div class="admin-section">
+            <h2>🔑 Gestione API Keys</h2>
+            
+            <div class="form-group">
+                <label for="openaiKey">
+                    <span class="status-indicator" id="openaiStatus"></span>
+                    OpenAI API Key:
+                </label>
+                <div class="api-key-input">
+                    <input type="password" id="openaiKey" placeholder="sk-...">
+                    <button type="button" class="toggle-visibility" onclick="toggleKeyVisibility('openaiKey')">👁️</button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="perplexityKey">
+                    <span class="status-indicator" id="perplexityStatus"></span>
+                    Perplexity API Key:
+                </label>
+                <div class="api-key-input">
+                    <input type="password" id="perplexityKey" placeholder="pplx-...">
+                    <button type="button" class="toggle-visibility" onclick="toggleKeyVisibility('perplexityKey')">👁️</button>
+                </div>
+            </div>
+            
+            <button class="btn btn-success" onclick="testApiKeys()">🧪 Testa API Keys</button>
+            <button class="btn" onclick="saveConfiguration()">💾 Salva Configurazione</button>
+        </div>
+        
+        <!-- Gestione Documenti -->
+        <div class="admin-section">
+            <h2>📄 Gestione Documenti</h2>
+            
+            <div class="form-group">
+                <label>Server di Trascrizione:</label>
+                <div>
+                    <span class="status-indicator" id="serverStatus"></span>
+                    <span id="serverStatusText">Verificando...</span>
+                </div>
+            </div>
+            
+            <div class="config-grid">
+                <div>
+                    <button class="btn" onclick="checkServerStatus()">🔄 Verifica Server</button>
+                    <button class="btn btn-danger" onclick="clearAllDocuments()">🗑️ Cancella Tutti i Documenti</button>
+                </div>
+                
+                <div>
+                    <button class="btn" onclick="startTranscriptionServer()">▶️ Avvia Server</button>
+                    <button class="btn btn-danger" onclick="stopTranscriptionServer()">⏹️ Ferma Server</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Impostazioni Avanzate -->
+        <div class="admin-section">
+            <h2>⚙️ Impostazioni Avanzate</h2>
+            
+            <div class="config-grid">
+                <div class="form-group">
+                    <label for="autoSave">Auto-salvataggio:</label>
+                    <select id="autoSave">
+                        <option value="true">Attivo</option>
+                        <option value="false">Disattivo</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sessionTimeout">Timeout Sessione (minuti):</label>
+                    <input type="number" id="sessionTimeout" min="5" max="120" value="30">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="debugMode">Modalità Debug:</label>
+                <select id="debugMode">
+                    <option value="false">Disattiva</option>
+                    <option value="true">Attiva</option>
+                </select>
+            </div>
+            
+            <button class="btn btn-danger" onclick="resetAllSettings()">🔄 Reset Impostazioni</button>
+            <button class="btn" onclick="exportConfiguration()">📤 Esporta Configurazione</button>
+            <button class="btn" onclick="importConfiguration()">📥 Importa Configurazione</button>
+        </div>
+    </div>
+    
+    <script src="admin.js"></script>
+</body>
+</html>
