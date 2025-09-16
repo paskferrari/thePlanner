@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a707762f7f.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,8 +24,8 @@
                 <button id="saveBtn" class="btn btn-secondary">Salva</button>
                 <button id="loadBtn" class="btn btn-secondary">Carica</button>
                 <button id="printBtn" class="btn btn-primary">Stampa/PDF</button>
-                <button id="testBtn" class="btn btn-test">Esegui Test</button>
-                <a href="admin.html" class="btn btn-admin" title="Pannello di Controllo Admin">⚙️ Admin</a>
+                <button id="testBtn" class="btn btn-test"><i class="fas fa-flask"></i> Esegui Test</button>
+                <a href="admin.html" class="btn btn-admin" title="Pannello di Controllo Admin"><i class="fas fa-cog"></i> Admin</a>
             </div>
         </header>
 
@@ -47,7 +48,7 @@
                         <div class="ai-toggle">
                             <label>
                                 <input type="checkbox" id="aiEnabled" class="ai-checkbox">
-                                <span class="ai-label">🤖 Assistente AI</span>
+                                <span class="ai-label"><i class="fas fa-brain"></i> Assistente AI</span>
                             </label>
                         </div>
                         <div class="ai-config" id="aiConfig" style="display: none;">
@@ -60,18 +61,18 @@
                             </div>
 
                             <div class="document-upload">
-                                <label for="documentUpload">📄 Carica documenti aziendali:</label>
+                                <label for="documentUpload"><i class="fas fa-paperclip"></i> Carica documenti aziendali:</label>
                                 <div class="upload-area" id="uploadArea">
                                     <input type="file" id="documentUpload" multiple accept=".pdf,.docx,.txt,.doc,.xlsx,.pptx" class="file-input">
                                     <div class="upload-placeholder">
-                                        <div class="upload-icon">📁</div>
+                                        <div class="upload-icon"><i class="fas fa-clipboard"></i></div>
                                         <p>Trascina i file qui o <span class="upload-link">clicca per selezionare</span></p>
                                         <small>Formati supportati: PDF, DOCX, TXT, DOC, XLSX, PPTX</small>
                                     </div>
                                 </div>
                                 <div class="uploaded-files" id="uploadedFiles">
                                     <div class="files-header" style="display: none;">
-                                        <h4>📋 Documenti caricati:</h4>
+                                        <h4><i class="fas fa-books"></i> Documenti caricati:</h4>
                                     </div>
                                     <div class="files-list" id="filesList"></div>
                                 </div>
@@ -85,7 +86,7 @@
                         <!-- Sezione 1: Informazioni Base -->
                         <div class="macro-section" data-section="base">
                             <div class="section-header">
-                                <h2>🏢 Informazioni Base</h2>
+                                <h2><i class="fas fa-building"></i> Informazioni Base</h2>
                                 <span class="section-toggle">−</span>
                             </div>
                             <div class="section-content">
@@ -96,8 +97,8 @@
                                     <div class="input-with-ai">
                                         <input type="text" id="companyName" placeholder="Inserisci nome azienda">
                                         <div class="ai-buttons-group">
-                                            <button type="button" class="ai-generate-btn" data-field="companyName" title="Genera con AI">🤖</button>
-                                            <button type="button" class="ai-chat-btn" data-field="companyName" title="Chat personalizzata">💬</button>
+                                            <button type="button" class="ai-generate-btn" data-field="companyName" title="Genera con AI"><i class="fas fa-magic"></i></button>
+                                            <button type="button" class="ai-chat-btn" data-field="companyName" title="Chat personalizzata"><i class="fas fa-comments"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -106,8 +107,8 @@
                                     <div class="input-with-ai">
                                         <textarea id="problemDescription" class="form-control" rows="4" placeholder="Quale problema risolve il tuo prodotto/servizio?"></textarea>
                                         <div class="ai-buttons-group">
-                                            <button type="button" class="ai-generate-btn" data-field="problemDescription" title="Genera con AI">🤖</button>
-                                            <button type="button" class="ai-chat-btn" data-field="problemDescription" title="Chat personalizzata">💬</button>
+                                            <button type="button" class="ai-generate-btn" data-field="problemDescription" title="Genera con AI"><i class="fas fa-magic"></i></button>
+                                            <button type="button" class="ai-chat-btn" data-field="problemDescription" title="Chat personalizzata"><i class="fas fa-comments"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -116,8 +117,8 @@
                                     <div class="input-with-ai">
                                         <textarea id="solutionDescription" class="form-control" rows="4" placeholder="Come il tuo prodotto/servizio risolve il problema?"></textarea>
                                         <div class="ai-buttons-group">
-                                            <button type="button" class="ai-generate-btn" data-field="solutionDescription" title="Genera con AI">🤖</button>
-                                            <button type="button" class="ai-chat-btn" data-field="solutionDescription" title="Chat personalizzata">💬</button>
+                                            <button type="button" class="ai-generate-btn" data-field="solutionDescription" title="Genera con AI"><i class="fas fa-magic"></i></button>
+                                            <button type="button" class="ai-chat-btn" data-field="solutionDescription" title="Chat personalizzata"><i class="fas fa-comments"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -126,8 +127,8 @@
                                     <div class="input-with-ai">
                                         <textarea id="targetMarket" class="form-control" rows="3" placeholder="Chi sono i tuoi clienti ideali?"></textarea>
                                         <div class="ai-buttons-group">
-                                            <button type="button" class="ai-generate-btn" data-field="targetMarket" title="Genera con AI">🤖</button>
-                                            <button type="button" class="ai-chat-btn" data-field="targetMarket" title="Chat personalizzata">💬</button>
+                                            <button type="button" class="ai-generate-btn" data-field="targetMarket" title="Genera con AI"><i class="fas fa-magic"></i></button>
+                                            <button type="button" class="ai-chat-btn" data-field="targetMarket" title="Chat personalizzata"><i class="fas fa-comments"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -136,8 +137,8 @@
                                     <div class="input-with-ai">
                                         <textarea id="competitorAnalysis" class="form-control" rows="3" placeholder="Chi sono i tuoi principali competitor?"></textarea>
                                         <div class="ai-buttons-group">
-                                            <button type="button" class="ai-generate-btn" data-field="competitorAnalysis" title="Genera con AI">🤖</button>
-                                            <button type="button" class="ai-chat-btn" data-field="competitorAnalysis" title="Chat personalizzata">💬</button>
+                                            <button type="button" class="ai-generate-btn" data-field="competitorAnalysis" title="Genera con AI"><i class="fas fa-magic"></i></button>
+                                            <button type="button" class="ai-chat-btn" data-field="competitorAnalysis" title="Chat personalizzata"><i class="fas fa-comments"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +153,7 @@
                         <!-- Sezione 2: Contenuti Dinamici -->
                         <div class="macro-section" data-section="content">
                             <div class="section-header">
-                                <h2>📋 Contenuti Business</h2>
+                                <h2><i class="fas fa-clipboard-list"></i> Contenuti Business</h2>
                                 <span class="section-toggle">−</span>
                             </div>
                             <div class="section-content">
@@ -164,7 +165,7 @@
                         <!-- Sezione 3: Dati Finanziari -->
                         <div class="macro-section" data-section="financial">
                             <div class="section-header">
-                                <h2>📊 Dati Finanziari</h2>
+                                <h2><i class="fas fa-chart-bar"></i> Dati Finanziari</h2>
                                 <span class="section-toggle">−</span>
                             </div>
                             <div class="section-content">
@@ -205,12 +206,12 @@
                         <!-- Sezione 4: Galleria Foto -->
                         <div class="macro-section" data-section="photos">
                             <div class="section-header">
-                                <h2>📸 Galleria Foto</h2>
+                                <h2><i class="fas fa-camera"></i> Galleria Foto</h2>
                                 <span class="section-toggle">−</span>
                             </div>
                             <div class="section-content">
                                 <div class="form-section">
-                                    <h4>📸 Galleria Foto</h4>
+                                    <h4><i class="fas fa-camera"></i> Galleria Foto</h4>
                                     <div class="form-group">
                                         <label for="photo-upload">Carica Immagini</label>
                                         <input type="file" id="photo-upload" multiple accept="image/*" class="file-input">
@@ -218,7 +219,7 @@
                                     </div>
                                     <div class="photo-gallery" id="photo-gallery">
                                         <div class="gallery-placeholder">
-                                            <div class="placeholder-icon">📷</div>
+                                            <div class="placeholder-icon"><i class="fas fa-camera-retro"></i></div>
                                             <p>Nessuna immagine caricata</p>
                                             <small>Le foto verranno inserite automaticamente nel business plan</small>
                                         </div>

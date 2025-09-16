@@ -145,8 +145,8 @@ class BusinessPlanGenerator {
 #### Variabili CSS
 ```css
 :root {
-  --primary-blue: #143964;
-  --primary-gold: #cdae50;
+  --primary-blue: #003381;
+  --primary-gold: #dec40d;
   --white: #ffffff;
   --light-gray: #f8f9fa;
   --shadow: 0 2px 10px rgba(20, 57, 100, 0.1);

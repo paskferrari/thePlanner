@@ -6,16 +6,24 @@
 }
 
 :root {
-    --primary-blue: #143964;
-    --primary-gold: #cdae50;
-    --white: #ffffff;
+    --primary-blue: #003381;
+    --primary-gold: #dec40d;
+    --white: #FFFFFF;
     --light-gray: #f8f9fa;
     --medium-gray: #e9ecef;
-    --dark-gray: #6c757d;
-    --text-dark: #212529;
-    --shadow: 0 2px 10px rgba(20, 57, 100, 0.1);
+    --dark-gray: #374151;
+    --text-dark: #111827;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     --border-radius: 8px;
     --transition: all 0.3s ease;
+    
+    /* Variabili aggiuntive per compatibilità */
+    --primary-color: #003381;
+    --primary-light: #e6f0ff;
+    --text-color: #111827;
+    --bg-light: #f8fafc;
+    --border-color: #e2e8f0;
+    --border-light: #f1f5f9;
 }
 
 body {
@@ -26,6 +34,46 @@ body {
     overflow-x: hidden;
 }
 
+/* Stili per la stampa */
+@media print {
+    .app-header {
+        position: static !important;
+        background: linear-gradient(135deg, var(--primary-blue) 0%, #002a6b 100%) !important;
+        color: var(--white) !important;
+        box-shadow: none !important;
+        border-bottom: 2px solid var(--primary-blue) !important;
+        page-break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .logo-placeholder {
+        background: var(--white) !important;
+        box-shadow: none !important;
+        border: 2px solid var(--primary-blue) !important;
+    }
+    
+    .header-controls {
+        display: none !important;
+    }
+    
+    .sidebar {
+        display: none !important;
+    }
+    
+    .main-content {
+        padding: 0 !important;
+        gap: 0 !important;
+    }
+    
+    .preview-container {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+    }
+}
+
 /* Layout principale */
 .app-container {
     min-height: 100vh;
@@ -34,7 +82,7 @@ body {
 }
 
 .app-header {
-    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-gold) 100%);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, #002a6b 100%);
     color: var(--white);
     padding: 1rem 2rem;
     display: flex;
@@ -44,6 +92,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
 .logo-section {
@@ -56,11 +105,12 @@ body {
     width: 40px;
     height: 40px;
     background: var(--white);
-    border-radius: 50%;
+    border-radius: var(--border-radius);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    box-shadow: var(--shadow);
 }
 
 .logo-placeholder img {
@@ -95,40 +145,43 @@ body {
     font-weight: 500;
     transition: var(--transition);
     font-size: 0.9rem;
+    box-shadow: var(--shadow);
 }
 
 .btn-primary {
-    background: var(--white);
-    color: var(--primary-blue);
+    background: var(--primary-blue);
+    color: var(--white);
 }
 
 .btn-primary:hover {
-    background: var(--light-gray);
+    background: #002a6b;
     transform: translateY(-2px);
 }
 
 .btn-secondary {
-    background: transparent;
-    color: var(--white);
-    border: 2px solid var(--white);
+    background: var(--white);
+    color: var(--text-dark);
+    border: 2px solid var(--primary-blue);
 }
 
 .btn-secondary:hover {
-    background: var(--white);
-    color: var(--primary-blue);
+    background: var(--primary-blue);
+    color: var(--white);
+    border-color: var(--primary-blue);
 }
 
 .btn-test {
     background: var(--primary-gold);
-    color: var(--primary-blue);
+    color: var(--white);
 }
 
 .btn-test:hover {
-    background: #b8982d;
+    background: #d97706;
+    color: var(--white);
 }
 
 .btn-admin {
-    background: #e74c3c;
+    background: var(--dark-gray);
     color: var(--white);
     text-decoration: none;
     display: inline-flex;
@@ -137,7 +190,7 @@ body {
 }
 
 .btn-admin:hover {
-    background: #c0392b;
+    background: var(--text-dark);
     text-decoration: none;
 }
 
@@ -145,16 +198,17 @@ body {
 .file-input {
     width: 100%;
     padding: 0.75rem;
-    border: 2px dashed var(--medium-gray);
+    border: 2px dashed var(--primary-blue);
     border-radius: var(--border-radius);
-    background: var(--light-gray);
+    background: var(--white);
     cursor: pointer;
     transition: var(--transition);
 }
 
 .file-input:hover {
-    border-color: var(--primary-blue);
-    background: #f8f9ff;
+    border-color: #002a6b;
+    background: #eff6ff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .upload-hint {
@@ -213,6 +267,7 @@ body {
     cursor: move;
     transition: transform 0.3s ease;
     user-select: none;
+    box-shadow: var(--shadow);
 }
 
 .photo-item:hover {
@@ -244,10 +299,10 @@ body {
     position: absolute;
     top: 5px;
     right: 5px;
-    background: rgba(255, 0, 0, 0.8);
+    background: rgba(108, 117, 125, 0.9);
     color: white;
     border: none;
-    border-radius: 50%;
+    border-radius: var(--border-radius);
     width: 24px;
     height: 24px;
     font-size: 12px;
@@ -853,7 +908,7 @@ body {
 }
 
 .chat-suggestions-label::before {
-    content: '✨';
+    content: '\f0d0';
     margin-right: 0.5rem;
     font-size: 1rem;
 }
@@ -1810,7 +1865,7 @@ body {
     
     .cover-title {
         font-size: 28pt !important;
-        color: #143964 !important;
+        color: #003381 !important;
         margin-bottom: 1cm !important;
     }
     
@@ -1858,7 +1913,7 @@ body {
     
     /* Section styling */
     .section-header {
-        background: #143964 !important;
+        background: #003381 !important;
         color: white !important;
         padding: 0.5cm !important;
         margin: 0 0 0.5cm 0 !important;
@@ -1893,7 +1948,7 @@ body {
     
     .form-section h4 {
         font-size: 14pt !important;
-        color: #143964 !important;
+        color: #003381 !important;
         margin: 0 0 0.3cm 0 !important;
         page-break-after: avoid;
     }
@@ -1911,7 +1966,7 @@ body {
     .form-group label {
         font-size: 11pt !important;
         font-weight: bold !important;
-        color: #143964 !important;
+        color: #003381 !important;
         margin-bottom: 0.2cm !important;
         display: block !important;
     }

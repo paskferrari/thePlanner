@@ -4,11 +4,11 @@
   
   <!-- Logo elements based on the provided image -->
   <!-- Top yellow parallelogram -->
-  <path d="M35 15 L50 15 L45 25 L30 25 Z" fill="#cdae50"/>
+  <path d="M35 15 L50 15 L45 25 L30 25 Z" fill="#dec40d"/>
   
   <!-- Main blue F shape -->
-  <path d="M25 30 L40 30 L35 40 L30 40 L30 50 L40 50 L35 60 L20 60 Z" fill="#143964"/>
+  <path d="M25 30 L40 30 L35 40 L30 40 L30 50 L40 50 L35 60 L20 60 Z" fill="#003381"/>
   
   <!-- Bottom yellow parallelogram -->
-  <path d="M45 45 L60 45 L55 55 L40 55 Z" fill="#cdae50"/>
+  <path d="M45 45 L60 45 L55 55 L40 55 Z" fill="#dec40d"/>
 </svg>
