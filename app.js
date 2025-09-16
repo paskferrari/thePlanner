@@ -357,7 +357,7 @@ class BusinessPlanGenerator {
             const formData = new FormData();
             formData.append('file', file);
             
-            const response = await fetch('http://localhost:5000/process_document', {
+            const response = await fetch(`${CONFIG.getBackendUrl()}/process_document`, {
                 method: 'POST',
                 body: formData
             });
@@ -436,7 +436,7 @@ class BusinessPlanGenerator {
             // Rimuove dal server se è un documento trascritto
             const doc = this.uploadedDocuments.find(d => d.id === docId);
             if (doc && doc.server_id) {
-                await fetch(`http://localhost:5000/remove_document/${doc.server_id}`, {
+                await fetch(`${CONFIG.getBackendUrl()}/remove_document/${doc.server_id}`, {
                     method: 'DELETE'
                 });
             }
@@ -615,7 +615,7 @@ class BusinessPlanGenerator {
         // Recupera i documenti trascritti dal server locale
         let documentContext = '';
         try {
-            const response = await fetch('http://localhost:5000/get_documents');
+            const response = await fetch(`${CONFIG.getBackendUrl()}/get_documents`);
             if (response.ok) {
                 const result = await response.json();
                 if (result.success && result.documents.length > 0) {
@@ -623,7 +623,7 @@ class BusinessPlanGenerator {
                     const documentsWithText = [];
                     for (const doc of result.documents) {
                         try {
-                            const textResponse = await fetch(`http://localhost:5000/get_document_text/${doc.id}`);
+                            const textResponse = await fetch(`${CONFIG.getBackendUrl()}/get_document_text/${doc.id}`);
                             if (textResponse.ok) {
                                 const textResult = await textResponse.json();
                                 if (textResult.success) {

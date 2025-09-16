@@ -77,7 +77,7 @@ class AdminControl {
         const statusText = document.getElementById('serverStatusText');
         
         try {
-            const response = await fetch('http://localhost:5000/health');
+            const response = await fetch(`${CONFIG.getBackendUrl()}/health`);
             if (response.ok) {
                 statusElement.className = 'status-indicator status-active';
                 statusText.textContent = 'Server di trascrizione attivo';
@@ -176,7 +176,7 @@ class AdminControl {
         }
         
         try {
-            const response = await fetch('http://localhost:5000/clear', {
+            const response = await fetch(`${CONFIG.getBackendUrl()}/clear_session`, {
                 method: 'POST'
             });
             
